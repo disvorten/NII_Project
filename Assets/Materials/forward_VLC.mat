@@ -8,10 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: forward_VLC
-  m_Shader: {fileID: 4800000, guid: 278916ce5a421ba4a8092c876e7b635c, type: 3}
+  m_Shader: {fileID: 4800000, guid: e011f86e3d086234bae49bdc9b121dec, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USEROTATION_ON
   m_InvalidKeywords:
   - _ALPHATEST_ON
   - _MAPPING_LATITUDE_LONGITUDE_LAYOUT
@@ -55,8 +56,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 1, y: -1}
+        m_Offset: {x: 0, y: 1}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -121,6 +122,7 @@ Material:
     - _Rotate180: 0
     - _RotateCW90: 0
     - _Rotation: 0
+    - _RotationAngle: 80
     - _RotationSpeed: 90
     - _SampleGI: 0
     - _Smoothness: 0.32
@@ -135,6 +137,7 @@ Material:
     - _StencilWriteMask: 255
     - _Surface: 1
     - _UVSec: 0
+    - _UseRotation: 1
     - _UseUIAlphaClip: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

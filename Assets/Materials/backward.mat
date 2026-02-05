@@ -8,10 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: backward
-  m_Shader: {fileID: 4800000, guid: 278916ce5a421ba4a8092c876e7b635c, type: 3}
+  m_Shader: {fileID: 4800000, guid: e011f86e3d086234bae49bdc9b121dec, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USEROTATION_ON
   m_InvalidKeywords:
   - _ALPHATEST_ON
   - _MAPPING_LATITUDE_LONGITUDE_LAYOUT
@@ -47,8 +48,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 8400000, guid: fe026fc5a9a8f584e95391f4228773d6, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 1, y: -1}
+        m_Offset: {x: 0, y: 1}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -83,6 +84,7 @@ Material:
     - _Rotate180: 0
     - _RotateCW90: 0
     - _Rotation: 0
+    - _RotationAngle: 80
     - _RotationSpeed: -90
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -93,6 +95,7 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _UVSec: 0
+    - _UseRotation: 1
     - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:

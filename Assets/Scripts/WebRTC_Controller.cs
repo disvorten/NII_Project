@@ -1,12 +1,8 @@
 using System;
 using System.Collections;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Sockets;
 using Unity.WebRTC;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WebRTC_Controller : MonoBehaviour
 {
@@ -27,7 +23,7 @@ public class WebRTC_Controller : MonoBehaviour
         {
             url = PlayerPrefs.GetString("back_url");
         }
-            pc = new RTCPeerConnection();
+        pc = new RTCPeerConnection();
         receiveStream = new MediaStream();
 
         pc.OnTrack = e =>
@@ -42,20 +38,16 @@ public class WebRTC_Controller : MonoBehaviour
                 videoTrack.OnVideoReceived += (tex) =>
                 {
                     Debug.Log("get img");
-                    sphere.material.mainTexture = tex;
+                    Texture2D texture2D = (tex as Texture2D);
+                    Debug.Log(texture2D.GetPixel(0, 0));
+                    Debug.Log(texture2D.GetPixel(0, 0));
+                    sphere.material.mainTexture = texture2D;
                 };
             }
-            //else if (e.Track is AudioStreamTrack audioTrack)
-            //{
-            //    audioSource.SetTrack(audioTrack);
-            //    audioSource.loop = true;
-            //    audioSource.Play();
-            //}
         };
 
         RTCRtpTransceiverInit init = new RTCRtpTransceiverInit();
         init.direction = RTCRtpTransceiverDirection.RecvOnly;
-        pc.AddTransceiver(TrackKind.Audio, init);
         pc.AddTransceiver(TrackKind.Video, init);
 
         StartCoroutine(WebRTC.Update());
@@ -134,6 +126,35 @@ public class WebRTC_Controller : MonoBehaviour
         pc?.Close();
         pc?.Dispose();
         receiveStream?.Dispose();
+    }
+
+
+    Texture2D FlipTexture(Texture2D original, bool upSideDown = true)
+    {
+
+        Texture2D flipped = new Texture2D(original.width, original.height);
+
+        int xN = original.width;
+        int yN = original.height;
+
+
+        for (int i = 0; i < xN; i++)
+        {
+            for (int j = 0; j < yN; j++)
+            {
+                if (upSideDown)
+                {
+                    flipped.SetPixel(j, xN - i - 1, original.GetPixel(j, i));
+                }
+                else
+                {
+                    flipped.SetPixel(xN - i - 1, j, original.GetPixel(i, j));
+                }
+            }
+        }
+        flipped.Apply();
+
+        return flipped;
     }
 }
 

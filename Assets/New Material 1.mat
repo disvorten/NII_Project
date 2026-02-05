@@ -7,15 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: backward_VLC
-  m_Shader: {fileID: 4800000, guid: e011f86e3d086234bae49bdc9b121dec, type: 3}
+  m_Name: New Material 1
+  m_Shader: {fileID: 4800000, guid: 2590095ea6b374e46bc1c463f0f121e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USEROTATION_ON
-  m_InvalidKeywords:
-  - _ALPHATEST_ON
-  - _MAPPING_LATITUDE_LONGITUDE_LAYOUT
+  - _ROTATECW90_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -47,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 8400000, guid: fe026fc5a9a8f584e95391f4228773d6, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: -1}
         m_Offset: {x: 0, y: 1}
     - _MetallicGlossMap:
@@ -65,43 +63,27 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
-    - _ColorMask: 15
-    - _Cutoff: 0
+    - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Exposure: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.066
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _ImageType: 1
-    - _Layout: 0
-    - _Mapping: 1
     - _Metallic: 0
-    - _MirrorOnBack: 0
-    - _Mode: 1
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Rotate180: 0
-    - _RotateCW90: 0
-    - _Rotation: 0
-    - _RotationAngle: 80
-    - _RotationSpeed: 90
+    - _RotateCW90: 1
+    - _RotationSpeed: 0
+    - _Scale: 29.86
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
     - _UVSec: 0
-    - _UseRotation: 1
-    - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:
-    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
