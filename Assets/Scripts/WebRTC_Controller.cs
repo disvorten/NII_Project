@@ -129,32 +129,6 @@ public class WebRTC_Controller : MonoBehaviour
     }
 
 
-    Texture2D FlipTexture(Texture2D original, bool upSideDown = true)
-    {
-
-        Texture2D flipped = new Texture2D(original.width, original.height);
-
-        int xN = original.width;
-        int yN = original.height;
-
-
-        for (int i = 0; i < xN; i++)
-        {
-            for (int j = 0; j < yN; j++)
-            {
-                if (upSideDown)
-                {
-                    flipped.SetPixel(j, xN - i - 1, original.GetPixel(j, i));
-                }
-                else
-                {
-                    flipped.SetPixel(xN - i - 1, j, original.GetPixel(i, j));
-                }
-            }
-        }
-        flipped.Apply();
-
-        return flipped;
-    }
+    
 }
 
