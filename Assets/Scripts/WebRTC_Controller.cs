@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Net.Http;
+using TMPro;
 using Unity.WebRTC;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WebRTC_Controller : MonoBehaviour
 {
@@ -12,6 +15,13 @@ public class WebRTC_Controller : MonoBehaviour
     private MediaStream receiveStream;
     public Renderer sphere;
     [SerializeField] private bool is_forward;
+
+    [Tooltip("UI Text: пинг, FPS приложения и FPS входящего видео (если есть в WebRTC stats).")]
+    [SerializeField] private  TMP_Text statsOutputText;
+    [SerializeField, Min(0.1f)] private float statsRefreshIntervalSeconds = 0.5f;
+
+    private Coroutine statsDisplayCoroutine;
+    private float smoothedAppFps = 60f;
 
     void Start()
     {
@@ -52,6 +62,88 @@ public class WebRTC_Controller : MonoBehaviour
 
         StartCoroutine(WebRTC.Update());
         StartCoroutine(createOffer());
+
+        StartStatsDisplay();
+    }
+
+    void Update()
+    {
+        if (statsOutputText == null)
+            return;
+        float dt = Time.unscaledDeltaTime;
+        if (dt > 0.0001f)
+        {
+            float instant = 1f / dt;
+            smoothedAppFps = Mathf.Lerp(smoothedAppFps, instant, Mathf.Clamp01(dt * 12f));
+        }
+    }
+
+    /// <summary>
+    /// Запускает периодическое обновление текста со статистикой. Первый проход выполняется сразу (без задержки).
+    /// Вызывается из Start; можно вызвать снова после смены statsOutputText.
+    /// </summary>
+    public void StartStatsDisplay()
+    {
+        if (statsOutputText == null || !isActiveAndEnabled)
+            return;
+        if (statsDisplayCoroutine != null)
+            StopCoroutine(statsDisplayCoroutine);
+        statsDisplayCoroutine = StartCoroutine(StatsDisplayLoop());
+    }
+
+
+    IEnumerator StatsDisplayLoop()
+    {
+        var wait = new WaitForSeconds(statsRefreshIntervalSeconds);
+        while (statsOutputText != null && pc != null)
+        {
+            double? pingMs = null;
+            double? videoFps = null;
+
+            var op = pc.GetStats();
+            yield return op;
+            if (!op.IsError && op.Value != null)
+            {
+                var report = op.Value;
+
+                foreach (var transport in report.Stats.Values.OfType<RTCTransportStats>())
+                {
+                    if (string.IsNullOrEmpty(transport.selectedCandidatePairId))
+                        continue;
+                    if (!report.Stats.TryGetValue(transport.selectedCandidatePairId, out var pairEntry))
+                        continue;
+                    if (pairEntry is RTCIceCandidatePairStats pair && pair.currentRoundTripTime > 0)
+                    {
+                        pingMs = pair.currentRoundTripTime * 1000.0;
+                        break;
+                    }
+                }
+
+                foreach (var inbound in report.Stats.Values.OfType<RTCInboundRTPStreamStats>())
+                {
+                    if (inbound.kind == "video" && inbound.framesPerSecond > 0)
+                    {
+                        videoFps = inbound.framesPerSecond;
+                        break;
+                    }
+                }
+            }
+
+            WriteStatsToOutput(pingMs, smoothedAppFps, videoFps);
+            yield return wait;
+        }
+
+        statsDisplayCoroutine = null;
+    }
+
+    void WriteStatsToOutput(double? pingMs, float appFps, double? videoFps)
+    {
+        if (statsOutputText == null)
+            return;
+        string pingLine = pingMs.HasValue ? $"{pingMs.Value:F0} ms" : "—";
+        string videoLine = videoFps.HasValue ? $"{videoFps.Value:F1}" : "—";
+        statsOutputText.text =
+            $"Ping: {pingLine}\nFPS приложения: {appFps:F1}\nFPS видео: {videoLine}";
     }
 
     private IEnumerator createOffer()
@@ -123,6 +215,12 @@ public class WebRTC_Controller : MonoBehaviour
 
     void OnDestroy()
     {
+        if (statsDisplayCoroutine != null)
+        {
+            StopCoroutine(statsDisplayCoroutine);
+            statsDisplayCoroutine = null;
+        }
+
         pc?.Close();
         pc?.Dispose();
         receiveStream?.Dispose();
