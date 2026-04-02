@@ -143,7 +143,7 @@ public class WebRTC_Controller : MonoBehaviour
         string pingLine = pingMs.HasValue ? $"{pingMs.Value:F0} ms" : "—";
         string videoLine = videoFps.HasValue ? $"{videoFps.Value:F1}" : "—";
         statsOutputText.text =
-            $"Ping: {pingLine}\nFPS приложения: {appFps:F1}\nFPS видео: {videoLine}";
+            $"Ping: {pingLine}\nFPS видео: {videoLine}";
     }
 
     private IEnumerator createOffer()
@@ -186,7 +186,6 @@ public class WebRTC_Controller : MonoBehaviour
             res.EnsureSuccessStatusCode();
             return await res.Content.ReadAsStringAsync();
         });
-        Debug.Log(task.Result);
         yield return new WaitUntil(() => task.IsCompleted);
         if (task.Exception != null)
         {

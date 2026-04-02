@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &272193788247293062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5425595259595809480}
+  - component: {fileID: 4902989084242843283}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5425595259595809480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272193788247293062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 114.02063, y: 76.71126, z: 142.22922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4902989084242843283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272193788247293062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8eb1fcfb08345e4d8b1d2ef6debe3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persist: 1
+  persistInEditor: 0
+  playerPrefsKey: HalfCylinderScreenTuning.v1
+  enableTuningUI: 1
+  tuningUIRoot: {fileID: 0}
+  targets:
+  - {fileID: 0}
+  - {fileID: 0}
+  radius: 0.7
+  height: 0.7
+  arcDegrees: 180
+  arcSegments: 150
+  heightSegments: 100
+  capTop: 1
+  capBottom: 1
+  capLeft: 0
+  capRight: 0
+  roundTop: 1
+  roundBottom: 1
+  roundHeight: 0.23
+  roundInset: 0.41
+  normalsInward: 1
+  yawDegrees: 0
+  flipU: 0
+  flipV: 0
